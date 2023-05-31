@@ -2,6 +2,7 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { parseCookies } from 'nookies';
 import { GetServerSideProps } from "next";
 import axios from 'axios';
+import { Teste } from '@/contexts/auth';
 /*
   This example requires some changes to your config:
   
@@ -16,8 +17,11 @@ import axios from 'axios';
   }
   ```
 */
+
 export default function Profile() {
   return (
+    <>
+    <Teste>
     <div style={{backgroundColor: "white"}} className='flex justify-center items-center'>
     <form>
       <div className="space-y-12">
@@ -348,6 +352,8 @@ export default function Profile() {
       </div>
     </form>
     </div>
+    </Teste>
+    </>
   )
 }
 

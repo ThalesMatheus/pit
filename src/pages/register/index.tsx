@@ -1,4 +1,8 @@
+import { useForm } from 'react-hook-form';
+import { onSubmit } from '@/hooks/CallAxios';
 export default function Example() {
+  const {register, handleSubmit} = useForm();
+
     return (
       <>
         {/*
@@ -24,7 +28,7 @@ export default function Example() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" action="#" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
@@ -32,7 +36,7 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     id="email"
-                    name="email"
+                    {...register("email")}
                     type="email"
                     autoComplete="email"
                     required
@@ -51,7 +55,7 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     id="password"
-                    name="password"
+                    {...register("senha")}
                     type="password"
                     autoComplete="current-password"
                     required
