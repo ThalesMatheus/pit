@@ -9,7 +9,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Typography, Skeleton } from '@mui/material';
 import '@emotion/react';
 import  axios from 'axios';
-
+import { Auth } from "@/contexts/auth";
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -45,6 +45,7 @@ export default function Example() {
   }, []);
   return (
       <>
+      <Auth>
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -202,6 +203,7 @@ export default function Example() {
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
         </main>
       </div>
+      </Auth>
       </>
   )
 }

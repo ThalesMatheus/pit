@@ -7,16 +7,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
 import { useRouter } from 'next/router';
 
-export const onSubmit = async ({email, senha}, register?: boolean)  => {
+export const onSubmit = async ({email, senha, peido})  => {
     /*alert(JSON.stringify(d.email))*/
-    if (register != undefined){
-      const response = await axios
-    .post("http://localhost:8800/register", {
-    email: JSON.stringify(email).replace(/"/g, ''),
-    senha: JSON.stringify(senha).replace(/"/g, ''),
-    peido: 1,
-  })
-    }
+    
     const response = await axios
     .post("http://localhost:8800/login", {
     email: JSON.stringify(email).replace(/"/g, ''),
@@ -36,10 +29,10 @@ export const onSubmit = async ({email, senha}, register?: boolean)  => {
         sameSite: "strict",
         maxAge: 60 * 60 * 1 // 1 hour 
     })
-    console.log("cheguei")
     window.location.href = '/dashboard';
   }
 else{
  toast.error(response.data, {theme: "dark"});
 }
+
 }

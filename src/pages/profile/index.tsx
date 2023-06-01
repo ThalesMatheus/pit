@@ -2,28 +2,21 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { parseCookies } from 'nookies';
 import { GetServerSideProps } from "next";
 import axios from 'axios';
-import { Teste } from '@/contexts/auth';
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import { Auth } from "@/contexts/auth";
+import { useForm } from 'react-hook-form';
+import "react-toastify/dist/ReactToastify.css";
+
+import {updateData } from '@/forms/update';
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Profile() {
+  const {register, handleSubmit} = useForm();
+
   return (
     <>
-    <Teste>
+    <Auth>
     <div style={{backgroundColor: "white"}} className='flex justify-center items-center'>
-    <form>
+    <form onSubmit={handleSubmit(updateData)}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
@@ -41,7 +34,7 @@ export default function Profile() {
                   <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">hobbyit.com/</span>
                   <input
                     type="text"
-                    name="username"
+                    {...register('username')}
                     id="username"
                     autoComplete="username"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus-visible:outline-none sm:text-sm sm:leading-6"
@@ -73,13 +66,20 @@ export default function Profile() {
               </label>
               <div className="mt-2 flex items-center gap-x-3">
                 <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
-                <button
-                  type="button"
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  
                 >
-                  Change
-                </button>
-              </div>
+                <label    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" >
+                <input
+             
+        id="file-upload"
+        {...register('photo')}
+        accept="image/*"
+        type="file"
+        className="sr-only"
+        style={{ backgroundColor: 'black', height: '0px', width: '00px', position: "relative" , zindex: 9999}}
+      />
+      Upload...
+              </label>                  </div>
             </div>
 
             <div className="col-span-full">
@@ -95,7 +95,7 @@ export default function Profile() {
                       className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                      <input id="file-upload" name="file-upload" accept="image/*" type="file" className="sr-only" />
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
@@ -118,7 +118,7 @@ export default function Profile() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="first-name"
+                  {...register('nome')}
                   id="first-name"
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -133,7 +133,7 @@ export default function Profile() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="last-name"
+                  {...register('sobrenome')}
                   id="last-name"
                   autoComplete="family-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -181,7 +181,7 @@ export default function Profile() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="street-address"
+                  {...register('endereco')}
                   id="street-address"
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -351,8 +351,9 @@ export default function Profile() {
         </button>
       </div>
     </form>
+    <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
     </div>
-    </Teste>
+    </Auth>
     </>
   )
 }

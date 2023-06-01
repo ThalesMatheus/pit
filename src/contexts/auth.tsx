@@ -4,7 +4,7 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { useRouter } from 'next/router';
 
-export const Teste = ({ children }) => {
+export const Auth = ({ children }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -16,20 +16,20 @@ export const Teste = ({ children }) => {
       var y = jwt_decode(cookies["user.auth_cookie"]);
       if (y.id === x) {
         console.log("teste");
-        setUser(y); // Set the user in the state if authenticated
+        setUser(y);
       } else {
-        router.push('/login'); // Redirect to login page
+        router.push('/login'); 
       }
     }
-    setLoading(false); // Set loading to false after authentication check
+    setLoading(false); 
   }, []);
 
   if (loading) {
-    return null; // Or render a loading spinner or any other component while checking authentication
+    return null; 
   }
 
   if (!user) {
-    return null; // Or redirect immediately instead of rendering the protected content
+    return null; 
   }
 
   return (
