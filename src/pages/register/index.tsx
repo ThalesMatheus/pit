@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { onSubmit } from '@/hooks/CallAxios';
 import { onRegister} from '@/hooks/Register';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Example() {
   const {register, handleSubmit} = useForm();
 
@@ -135,6 +137,8 @@ export default function Example() {
           </div>
         </div>
         </div>
+        <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
+
         </div>
       </>
     )
