@@ -1,40 +1,43 @@
-import { createContext, useEffect, useState } from "react";
-import { parseCookies } from 'nookies';
-import axios from 'axios';
-import jwt_decode from "jwt-decode";
-import { useRouter } from 'next/router';
+import { createContext, useEffect, useState } from 'react'
+import { parseCookies } from 'nookies'
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+import { useRouter } from 'next/router'
 
-export const Auth = ({ children }) => {
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+interface AuthValue {
+  children: any
+}
+export const Auth = ({ children }: AuthValue) => {
+  const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
-    const cookies = parseCookies();
+    const cookies = parseCookies()
     if (cookies) {
-      var x = localStorage.getItem('username');
-      var y = jwt_decode(cookies["user.auth_cookie"]);
+      const x = localStorage.getItem('username')
+      const y = jwt_decode(cookies['user.auth_cookie'])
       if (y.id === x) {
-        console.log("teste");
-        setUser(y);
+        console.log('teste')
+        setUser(y)
       } else {
-        router.push('/login'); 
+        router.push('/login')
       }
     }
-    setLoading(false); 
-  }, []);
+    setLoading(false)
+  }, [])
 
   if (loading) {
-    return null; 
+    return null
   }
 
   if (!user) {
-    return null; 
+    return null
   }
 
   return (
     <>
-      {children} 
-      </>
-  );
+      {children}
+    </>
+  )
 }
