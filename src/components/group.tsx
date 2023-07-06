@@ -5,7 +5,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-
+import {onGroupSubmit} from '@/hooks/Group'
 export default function Modal() {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
   let [isOpen, setIsOpen] = useState(false);
@@ -70,7 +70,7 @@ export default function Modal() {
       className="space-y-6"
       action="#"
       method="POST"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onGroupSubmit)}
     >
       <Tabs.Root
         className="flex w-full h-full TabsRoot"
@@ -239,7 +239,7 @@ export default function Modal() {
                     borderRadius: "10px",
                   }}
                   className="z-20 opacity-0 cursor-pointer h-full w-full"
-                  {...register('image')}
+                  
                 />
                 <div className="absolute flex h-full w-full justify-center items-center gap-2">
                   <div
@@ -254,6 +254,9 @@ export default function Modal() {
                       objectFit: 'fill'
                     }}
                   />
+                  {selectedFile && (
+        <input type="hidden" {...register('image')} value={selectedFile} />
+      )}
                 </div>
               </div>
               <div className="text-[18px] truncate">
