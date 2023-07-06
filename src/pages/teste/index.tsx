@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import Modal,from '@/components/group';
+import Modal from '@/components/group';
 import Alert from '@/components/dropdown';
+import Navbar from '@/components/nav'
 
 const ParentComponent: React.FC = () => {
 
 
   return (
-    <Modal />
-  );
+    <>
+    
+      <Navbar />
+      </>
+    );
 };
 
 export default ParentComponent;

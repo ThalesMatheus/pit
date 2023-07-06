@@ -5,8 +5,10 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
+
 export default function Modal() {
-  let [isOpen, setIsOpen] = useState(true);
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
+  let [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [checkFile, setCheckFile] = useState(false);
 
@@ -16,18 +18,31 @@ export default function Modal() {
   };
   const [selectedIndex, setSelectedIndex] = useState("tab1");
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [isCheckboxChecked2, setIsCheckboxChecked2] = useState(false);
+  const [isCheckboxChecked3, setIsCheckboxChecked3] = useState(false);
 
   const handleCheckboxChange = (isChecked) => {
     setIsCheckboxChecked(isChecked);
   };
+  const handleCheckboxChange2 = (isChecked) => {
+    setIsCheckboxChecked2(isChecked);
+    setValue('endereco', isChecked ? '2' : '');
+    if(isCheckboxChecked3 == true) setIsCheckboxChecked3(!isChecked);
+  };
+  const handleCheckboxChange3 = (isChecked) => {
+    setIsCheckboxChecked3(isChecked)
+    setValue('endereco', isChecked ? '3' : '');
+    ; if(isCheckboxChecked2 == true) setIsCheckboxChecked2(!isChecked);
+
+  };
   const handleNextTab = () => {
     setSelectedIndex((prevIndex) => {
       // Determine the next tab index based on the current index
-      const currentIndex = ["tab1", "tab2", "tab3"].indexOf(prevIndex);
-      const nextIndex = currentIndex + 1 >= 3 ? 0 : currentIndex + 1;
+      const currentIndex = ["tab1", "tab2", "tab3", "tab4"].indexOf(prevIndex);
+      const nextIndex = currentIndex + 1 >= 4 ? 0 : currentIndex + 1;
 
       // Return the value of the next tab index
-      return ["tab1", "tab2", "tab3"][nextIndex];
+      return ["tab1", "tab2", "tab3", "tab4"][nextIndex];
     });
   };
 
@@ -39,8 +54,9 @@ export default function Modal() {
       alert("select a file");
     }
   };
-
-  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -54,7 +70,7 @@ export default function Modal() {
       className="space-y-6"
       action="#"
       method="POST"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Tabs.Root
         className="flex w-full h-full TabsRoot"
@@ -70,6 +86,9 @@ export default function Modal() {
           </Tabs.Trigger>
           <Tabs.Trigger className="TabsTrigger" value="tab3">
             Description
+          </Tabs.Trigger>
+          <Tabs.Trigger className="TabsTrigger" value="tab4">
+            Image
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content className="TabsContent" value="tab1">
@@ -105,7 +124,7 @@ export default function Modal() {
               justifyContent: "flex-end",
             }}
           >
-            <button onClick={handleNextTab}>Next Tab</button>
+            <button className='Button' onClick={handleNextTab} style={{border: '1px solid rgba(0,0,0, 0.4)', cursor: "pointer"}}>Next Tab</button>
           </div>
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="tab2">
@@ -118,8 +137,8 @@ export default function Modal() {
             </label>
             <input
               className={`Input ${isCheckboxChecked ? 'Input--disabled' : ''}`}
-              id="email"
-              {...register("email")}
+              id="cnpj"
+              {...register('cnpj')}
               disabled={isCheckboxChecked}
             />
             <div style={{ display: "flex", alignItems: "center", marginTop: '10px' }}>
@@ -140,7 +159,40 @@ export default function Modal() {
             <label className="Label mb-[10px]" htmlFor="newPassword">
               New password
             </label>
-            <input className="Input" id="newPassword" type="password" />
+            <input className={`Input ${(isCheckboxChecked2 || isCheckboxChecked3 ? 'Input--disabled' : '')}`} id="endereco" type="text"
+              {...register('endereco')}
+              disabled={isCheckboxChecked2 || isCheckboxChecked3}
+             />
+            <div className='justify-start flex-col'style={{ display: "flex",  marginTop: '10px' }}>
+              <div className='flex items-center'>
+                
+            <Checkbox.Root
+                className="CheckboxRoot mb-2"
+                checked={isCheckboxChecked2}
+                onCheckedChange={handleCheckboxChange2}
+                id="c1"
+                >
+                <Checkbox.Indicator className="CheckboxIndicator">
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              <p className="mb-2 ml-2">Use current address</p>
+                </div>
+                <div className='flex mb-2'>
+
+              <Checkbox.Root
+                className="CheckboxRoot"
+                checked={isCheckboxChecked3}
+                onCheckedChange={handleCheckboxChange3}
+                id="c1"
+                >
+                <Checkbox.Indicator className="CheckboxIndicator">
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              <p className="mb-2 ml-2">Use current address</p>
+                </div>
+              </div>
           </fieldset>
           <fieldset className="Fieldset">
             <label className="Label mb-[10px]" htmlFor="confirmPassword">
@@ -155,15 +207,29 @@ export default function Modal() {
               justifyContent: "flex-end",
             }}
           >
-            <button onClick={handleNextTab}>Next Tab</button>
+            <button className='Button' onClick={handleNextTab} style={{border: '1px solid rgba(0,0,0, 0.4)', cursor: "pointer"}}>Next Tab</button>
           </div>
         </Tabs.Content>
-        <Tabs.Content className="TabsContent h-[60vh]" value="tab3">
+        <Tabs.Content className="TabsContent w-full" value="tab3">
+        <input className="Input !h-[50vh] w-full description"></input>
+        <div
+            style={{
+              display: "flex",
+              marginTop: 20,
+              justifyContent: "flex-end",
+            }}
+            {...register('description')}
+          >
+        <button className='Button' onClick={handleNextTab} style={{border: '1px solid rgba(0,0,0, 0.4)', cursor: "pointer"}}>Next Tab</button>
+            </div>
+
+        </Tabs.Content>
+        <Tabs.Content className="TabsContent h-[60vh]" value="tab4">
           <div className="h-[100%] flex justify-center items-center px-2">
             <div className="w-[320px] flex flex-col items-center justify-center gap-2">
               <div
-                className="h-[10rem] w-[10rem] cursor-pointer relative flex justify-center items-center border-2 rounded-md"
-                style={{ borderRadius: "100%" }}
+                className='h-[10rem] w-[10rem] cursor-pointer relative flex justify-center items-center border-2 rounded-md'
+                style={{ borderRadius: "100%",   overflow: checkFile ? "hidden" : "visible"}}
               >
                 <input
                   type="file"
@@ -173,15 +239,20 @@ export default function Modal() {
                     borderRadius: "10px",
                   }}
                   className="z-20 opacity-0 cursor-pointer h-full w-full"
+                  {...register('image')}
                 />
-                <div className="absolute flex justify-center items-center gap-2">
-                  <img
-                    className={`h-full w-full  rounded-full ${
+                <div className="absolute flex h-full w-full justify-center items-center gap-2">
+                  <div
+                    className={`h-full w-full ${
                       checkFile ? "opacity-1" : "opacity-0"
                     }`}
-                    src={
-                      selectedFile ? URL.createObjectURL(selectedFile) : null
-                    }
+                    style={{
+                      backgroundImage: `url(${selectedFile ? URL.createObjectURL(selectedFile) : ""})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      objectFit: 'fill'
+                    }}
                   />
                 </div>
               </div>
@@ -191,7 +262,7 @@ export default function Modal() {
             </div>
           </div>
           <div className="flex justify-end items-center w-full">
-            <button className="Button green" type="submit">
+            <button className="Button green cursor-pointer" type="submit">
               create group
             </button>
           </div>
@@ -203,7 +274,7 @@ export default function Modal() {
   return (
     <>
       <motion.div>
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="inset-0 flex items-center justify-center">
           <button
             type="button"
             onClick={openModal}
