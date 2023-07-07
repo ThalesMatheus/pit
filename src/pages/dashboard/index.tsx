@@ -210,7 +210,6 @@ export default function Example () {
   )
 }
 function sexo () {
-  console.log('TESTE')
   return {
     redirect: {
       destination: '/login',

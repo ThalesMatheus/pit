@@ -6,7 +6,7 @@ export default function Navbar () {
     
     return (
     <>
-    <nav className='h-[3rem] w-full bg-gray-300'>
+    <nav className='h-[3rem] w-full temp bg-white'>
     <div className='iternal-navbar flex items-center h-full justify-between w-full'>
     <div className='internal-nav-icons'>
         aaa    

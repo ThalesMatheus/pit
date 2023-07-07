@@ -1,17 +1,39 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
+import  Tags  from '@/components/tags/tags'
+import 'react-toastify/dist/ReactToastify.css'
+import { toast, ToastContainer } from 'react-toastify'
+
 import {onGroupSubmit} from '@/hooks/Group'
 export default function Modal() {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
   let [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [checkFile, setCheckFile] = useState(false);
+  const handlerSubmit = (data: any) => {
+    onGroupSubmit(data, handleCloseModal);
+  }
+  const [tags, setTags] = useState([]);
 
+  const handleTagsChange = (newTags) => {
+    setTags(newTags);
+  };
+  const handleCloseModal = () => {
+    setIsOpen(false); // Close the modal by updating the state
+  };
+
+  const [selectedText, setSelectedText] = useState('');
+
+  const handleTextChange = (event) => {
+    setSelectedText(event.target.value);
+  };
+
+  
   const imageHandler = (e) => {
     setSelectedFile(e.target.files[0]);
     setCheckFile(true);
@@ -70,7 +92,7 @@ export default function Modal() {
       className="space-y-6"
       action="#"
       method="POST"
-      onSubmit={handleSubmit(onGroupSubmit)}
+      onSubmit={handleSubmit(handlerSubmit)}
     >
       <Tabs.Root
         className="flex w-full h-full TabsRoot"
@@ -82,7 +104,7 @@ export default function Modal() {
             Account
           </Tabs.Trigger>
           <Tabs.Trigger className="TabsTrigger" value="tab2">
-            Password
+            Fields
           </Tabs.Trigger>
           <Tabs.Trigger className="TabsTrigger" value="tab3">
             Description
@@ -102,19 +124,19 @@ export default function Modal() {
             <input
               className="Input"
               id="name"
-              defaultValue="myGroup"
-              {...register("group name")}
+              placeholder="myGroup"
+              {...register("nome")}
             />
           </fieldset>
           <fieldset className="Fieldset">
             <label className="Label mb-[10px]" htmlFor="username">
-              Username
+              Id própria, ou nickname
             </label>
             <input
               className="Input"
               id="username"
-              defaultValue="@"
-              {...register("group link")}
+              placeholder="@..."
+              {...register("grouplink")}
             />
           </fieldset>
           <div
@@ -129,11 +151,11 @@ export default function Modal() {
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="tab2">
           <p className="Text">
-            Change your password here. After saving, you'll be logged out.
+            Alguns dados para a criação do grupo
           </p>
           <fieldset className="Fieldset">
             <label className="Label mb-[10px]" htmlFor="database">
-              Current password
+            CNPJ
             </label>
             <input
               className={`Input ${isCheckboxChecked ? 'Input--disabled' : ''}`}
@@ -152,18 +174,18 @@ export default function Modal() {
                   <CheckIcon />
                 </Checkbox.Indicator>
               </Checkbox.Root>
-              <label className="Label mb-[10px] text-black" htmlFor="c1">Use current email</label>
+              <label className="Label mb-[10px] text-black" htmlFor="c1">Sem uso do CPNJ</label>
             </div>
           </fieldset>
           <fieldset className="Fieldset">
             <label className="Label mb-[10px]" htmlFor="newPassword">
-              New password
+              Endereço
             </label>
             <input className={`Input ${(isCheckboxChecked2 || isCheckboxChecked3 ? 'Input--disabled' : '')}`} id="endereco" type="text"
               {...register('endereco')}
               disabled={isCheckboxChecked2 || isCheckboxChecked3}
              />
-            <div className='justify-start flex-col'style={{ display: "flex",  marginTop: '10px' }}>
+            <div className='justify-start items-center'style={{ display: "flex",  marginTop: '10px' }}>
               <div className='flex items-center'>
                 
             <Checkbox.Root
@@ -176,9 +198,9 @@ export default function Modal() {
                   <CheckIcon />
                 </Checkbox.Indicator>
               </Checkbox.Root>
-              <p className="mb-2 ml-2">Use current address</p>
+              <p className="mb-2 ml-2">Usar endereço de login</p>
                 </div>
-                <div className='flex mb-2'>
+                <div className='flex ml-5 mb-2'>
 
               <Checkbox.Root
                 className="CheckboxRoot"
@@ -190,15 +212,9 @@ export default function Modal() {
                   <CheckIcon />
                 </Checkbox.Indicator>
               </Checkbox.Root>
-              <p className="mb-2 ml-2">Use current address</p>
+              <p className=" ml-2">Sem endereço físico</p>
                 </div>
               </div>
-          </fieldset>
-          <fieldset className="Fieldset">
-            <label className="Label mb-[10px]" htmlFor="confirmPassword">
-              Confirm password
-            </label>
-            <input className="Input" id="confirmPassword" type="password" />
           </fieldset>
           <div
             style={{
@@ -211,15 +227,20 @@ export default function Modal() {
           </div>
         </Tabs.Content>
         <Tabs.Content className="TabsContent w-full" value="tab3">
-        <input className="Input !h-[50vh] w-full description"></input>
+        <textarea  {...register('description')}
+ className="Input !h-[50vh] w-full description"></textarea>
         <div
             style={{
               display: "flex",
               marginTop: 20,
               justifyContent: "flex-end",
             }}
-            {...register('description')}
-          >
+    
+            >
+              <input
+          type="hidden"
+          value={selectedText}
+        />
         <button className='Button' onClick={handleNextTab} style={{border: '1px solid rgba(0,0,0, 0.4)', cursor: "pointer"}}>Next Tab</button>
             </div>
 
@@ -257,6 +278,8 @@ export default function Modal() {
                   {selectedFile && (
         <input type="hidden" {...register('image')} value={selectedFile} />
       )}
+                    <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
+
                 </div>
               </div>
               <div className="text-[18px] truncate">
@@ -281,9 +304,9 @@ export default function Modal() {
           <button
             type="button"
             onClick={openModal}
-            className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="rounded-md bg-gray-400 bg-opacity-20 px-4 py-2 text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            Open dialog
+            Create Group +
           </button>
         </div>
 
@@ -335,4 +358,4 @@ export default function Modal() {
       </motion.div>
     </>
   );
-}
+  }
