@@ -1,29 +1,26 @@
-import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import React, { useState } from 'react';
+import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
+import React, { useState } from 'react'
 import Modal from '@/components/group'
 import DropdownMenuDemo from '@/components/radix/menu'
 export default function Navbar () {
-    
-    return (
+  return (
     <>
-    <nav className='h-[3rem] w-full temp bg-white'>
-    <div className='iternal-navbar flex items-center h-full justify-between w-full'>
-    <div className='internal-nav-icons'>
-        aaa    
-    </div>
-        <div className='internal-navbar flex items-center'>
-        <div className="internal-nav-item">
-
+      <nav className='h-[3rem] w-full temp bg-white'>
+        <div className='iternal-navbar flex items-center h-full justify-between w-full'>
+          <div className='internal-nav-icons'>
+            aaa
+          </div>
+          <div className='internal-navbar flex items-center'>
+            <div className='internal-nav-item' />
+            <div className='internal-nav-item mr-2'>
+              <Modal />
+            </div>
+            <div className='internal-nav-item mr-2'>
+              <DropdownMenuDemo />
+            </div>
+          </div>
         </div>
-        <div className="internal-nav-item mr-2">
-        <Modal />
-        </div>
-        <div className="internal-nav-item mr-2">
-            <DropdownMenuDemo />
-        </div>
-        </div>
-    </div>   
-    </nav>
-    </>    
-    );
+      </nav>
+    </>
+  )
 }
