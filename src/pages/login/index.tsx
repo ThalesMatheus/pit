@@ -63,7 +63,7 @@ export default function Example () {
                     <div className='text-sm'>
                       <a href='forgotpass' className='font-semibold text-indigo-600 hover:text-indigo-500'>
                         Forgot password?
-                    </a>
+                      </a>
                     </div>
                   </div>
                   <div className='mt-2'>
