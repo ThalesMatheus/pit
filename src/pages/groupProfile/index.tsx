@@ -53,7 +53,8 @@ export const GroupListPage: React.FC = () => {
             >
               <h2 className='text-lg font-semibold mb-2'>{group.nome}</h2>
               <p className='text-gray-500'>Group ID: {group.grupoId}</p>
-              <button onClick={() => handleOpenModal(group.grupoId)}>Open Modal</button>
+              <button onClick={() => handleOpenModal(group.grupoId)}>Deletar</button>
+              <button onClick={() => handleOpenModal(group.grupoId)}>Participar</button>
             </div>
           ))}
           {isModalOpen && (

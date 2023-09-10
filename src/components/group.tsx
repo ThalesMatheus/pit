@@ -41,6 +41,12 @@ export default function Modal () {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
   const [isCheckboxChecked2, setIsCheckboxChecked2] = useState(false)
   const [isCheckboxChecked3, setIsCheckboxChecked3] = useState(false)
+  const [isCheckboxChecked4, setIsCheckboxChecked4] = useState(false)
+
+  const handleCheckboxChange4 = (isChecked) => {
+    setIsCheckboxChecked4(isChecked)
+    setValue('c77', isChecked ? "0" : "1")
+  }
 
   const handleCheckboxChange = (isChecked) => {
     setIsCheckboxChecked(isChecked)
@@ -136,6 +142,22 @@ export default function Modal () {
               placeholder='@...'
               {...register('grouplink')}
             />
+          </fieldset>
+          <fieldset className='Fieldset'>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+              <Checkbox.Root
+                className='CheckboxRoot'
+                checked={isCheckboxChecked4}
+                onCheckedChange={handleCheckboxChange4}
+                {...register('c77')}
+                id='c77'
+              >
+                <Checkbox.Indicator className='CheckboxIndicator'>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              <label className='Label mb-[10px] text-black' htmlFor='c1'>Privado</label>
+            </div>
           </fieldset>
           <div
             style={{
