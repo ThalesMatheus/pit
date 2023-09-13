@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 
-export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => {
+
+function data_map (data: any) {
   const keys = Object.keys(data)
   console.log(keys)
   console.log(data)
@@ -13,6 +14,11 @@ export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => 
     const value = data[key]
     requestData[key] = value
   }
+  return requestData
+}
+
+export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => {
+  const requestData = data_map(data)
   const response = await axios.post('http://localhost:8800/creategroup', requestData)
 
   if (response.data.id === 2) {
@@ -20,5 +26,19 @@ export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => 
   } else {
     toast.success('group created', { theme: 'dark' })
     handleCloseModal()
+  }
+}
+
+export const onGroupEntry = async (data: any) => {
+  const requestData = data_map(data)
+  const response = await axios.post('http://localhost:8800/entrygroup', requestData)
+  if (response.data.id === 2) {
+    toast.success('You are in group', { theme: 'dark' })
+  }
+  else if (response.data.id === 3) {
+    toast.error('You already in this group', { theme: 'dark' })
+  }
+  else {
+    toast.error(response.data.message, { theme: 'dark' })
   }
 }
