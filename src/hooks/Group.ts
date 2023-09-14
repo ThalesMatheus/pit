@@ -29,9 +29,12 @@ export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => 
   }
 }
 
-export const onGroupEntry = async (data: any) => {
-  const requestData = data_map(data)
-  const response = await axios.post('http://localhost:8800/entrygroup', requestData)
+export const onGroupEntry = async (data: any, uuid: any = '') => {
+
+  const response = await axios.post('http://localhost:8800/groups/group_entry', {
+    groupid: data,
+    uuid: uuid
+  })
   if (response.data.id === 2) {
     toast.success('You are in group', { theme: 'dark' })
   }

@@ -8,7 +8,9 @@ import TailwindModal from '@/components/tailwind/modal'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { jwtcheck } from '@/hooks/VerifyJWT'
-
+import { onGroupEntry } from '@/hooks/Group'
+import { Confirm_button } from '@/components/button'
+import { Description_bar } from '@/components/description'
 interface Group {
   id: number
   name: string
@@ -54,7 +56,9 @@ export const GroupListPage: React.FC = () => {
               <h2 className='text-lg font-semibold mb-2'>{group.nome}</h2>
               <p className='text-gray-500'>Group ID: {group.grupoId}</p>
               <button onClick={() => handleOpenModal(group.grupoId)}>Deletar</button>
-              <button onClick={() => handleOpenModal(group.grupoId)}>Participar</button>
+            <Confirm_button groupid={group.grupoId}>Confirmar</Confirm_button>
+            <Description_bar groupid={group.grupoId} />
+              {/* <button onClick={() => onGroupEntry(group.grupoId)}>Participar</button> */}
             </div>
           ))}
           {isModalOpen && (
