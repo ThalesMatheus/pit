@@ -277,6 +277,9 @@ export default function Modal () {
                 <input
                   type='file'
                   name='file'
+                  accept="image/*"
+                  type="file"
+                  className="sr-only"
                   onChange={imageHandler}
                   style={{
                     borderRadius: '10px'

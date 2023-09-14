@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 interface user {
     uuid: string
-    image_link: any
-    name: string
+    foto: any
+    nome: string
   }
   
-export const Description_bar = (groupid) => {
+export const Description_bar = ({groupid}: any) => {
 
     const [user, setUser] = useState<user[]>([]);
     useEffect(() => {
@@ -25,9 +25,8 @@ export const Description_bar = (groupid) => {
         <>
         {user.map(user => (
         <div key={user.uuid}> 
-            <div>{user.uuid}</div>
-            <div>{user.name}</div>
-            <div>{user.image_link}</div>
+              <div>{user.nome}</div>
+              <div>{user.foto}</div>
             </div>
             ))}
             </>

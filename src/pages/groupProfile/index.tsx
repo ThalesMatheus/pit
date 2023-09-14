@@ -11,6 +11,7 @@ import { jwtcheck } from '@/hooks/VerifyJWT'
 import { onGroupEntry } from '@/hooks/Group'
 import { Confirm_button } from '@/components/button'
 import { Description_bar } from '@/components/description'
+import Link from 'next/link'
 interface Group {
   id: number
   name: string
@@ -58,6 +59,9 @@ export const GroupListPage: React.FC = () => {
               <button onClick={() => handleOpenModal(group.grupoId)}>Deletar</button>
             <Confirm_button groupid={group.grupoId}>Confirmar</Confirm_button>
             <Description_bar groupid={group.grupoId} />
+            <Link href="/group/[group].tsx" as={`/group/${group.grupoId}`}>  Detalhes
+</Link>
+
               {/* <button onClick={() => onGroupEntry(group.grupoId)}>Participar</button> */}
             </div>
           ))}
