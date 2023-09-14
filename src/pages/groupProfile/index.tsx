@@ -10,6 +10,7 @@ import { parseCookies } from 'nookies'
 import { jwtcheck } from '@/hooks/VerifyJWT'
 import { onGroupEntry } from '@/hooks/Group'
 import { Confirm_button } from '@/components/button'
+import { Confirm_button_leave } from '@/components/buttonLeave'
 import { Description_bar } from '@/components/description'
 interface Group {
   id: number
@@ -57,6 +58,7 @@ export const GroupListPage: React.FC = () => {
               <p className='text-gray-500'>Group ID: {group.grupoId}</p>
               <button onClick={() => handleOpenModal(group.grupoId)}>Deletar</button>
             <Confirm_button groupid={group.grupoId}>Confirmar</Confirm_button>
+            <Confirm_button_leave groupid={group.grupoId}>Sair</Confirm_button_leave>
             <Description_bar groupid={group.grupoId} />
               {/* <button onClick={() => onGroupEntry(group.grupoId)}>Participar</button> */}
             </div>
