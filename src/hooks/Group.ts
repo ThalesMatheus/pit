@@ -45,3 +45,20 @@ export const onGroupEntry = async (data: any, uuid: any = '') => {
     toast.error(response.data.message, { theme: 'dark' })
   }
 }
+
+export const onGroupLeave = async (data: any, uuid: any = '') => {
+
+  const response = await axios.post('http://localhost:8800/groups/group_leave', {
+    groupid: data,
+    uuid: uuid
+  })
+  if (response.data.id === 2) {
+    toast.success('Saiu com sucesso', { theme: 'dark' })
+  }
+  else if (response.data.id === 3) {
+    toast.error('Voce nao esta no grupo', { theme: 'dark' })
+  }
+  else {
+    toast.error(response.data.message, { theme: 'dark' })
+  }
+}
