@@ -16,9 +16,9 @@ export default function Example () {
           <body class="h-full">
           ```
         */}
-      <div className='flex w-[100%] justify-center items-center h-[100vh]' style={{ backgroundImage: 'url(https://images4.alphacoders.com/115/115708.jpg)', filter: '(10px)' }}>
-        <div className=' w-[33%] flex justify-center' style={{ overflow: 'hidden', marginTop: '0%', backdropFilter: 'blur(4px)', backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '2px' }}>
-          <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+      <div className='flex w-[100%] justify-center items-center h-[100vh]' >
+        <div className=' w-[33%] flex justify-center  h-[100%]' style={{ overflow: 'hidden', marginTop: '0%', backdropFilter: 'blur(4px)', backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '2px' }}>
+          <div className='flex rounded-xl border min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
             <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
               <img
                 className='mx-auto h-10 w-auto'
@@ -41,7 +41,7 @@ export default function Example () {
                       type='email'
                       autoComplete='email'
                       required
-                      className='block mr-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block text-center mr-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='email'
                     />
                     <input
@@ -50,7 +50,7 @@ export default function Example () {
                       type='password'
                       autoComplete='nick'
                       required
-                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full text-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='nick'
                     />
                   </div>
@@ -65,7 +65,7 @@ export default function Example () {
                       type='name'
                       autoComplete='name'
                       required
-                      className='block w-full mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full text-center mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='nome'
                     />
                     <input
@@ -74,7 +74,7 @@ export default function Example () {
                       type='ln'
                       autoComplete='ln'
                       required
-                      className='block w-full m2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full m2 text-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='sobrenome'
                     />
                   </div>
@@ -89,7 +89,7 @@ export default function Example () {
                       type='addr'
                       autoComplete='addr'
                       required
-                      className='block w-full mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full text-center mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='endereço'
                     />
                     <input
@@ -98,7 +98,7 @@ export default function Example () {
                       type='phone'
                       autoComplete='phone'
                       required
-                      className='block w-full m2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full text-center m2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='celular'
                     />
                   </div>
@@ -113,15 +113,15 @@ export default function Example () {
                       type='password'
                       autoComplete='current-password'
                       required
-                      className='block w-full mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                      className='block w-full text-center mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-300 sm:text-sm sm:leading-1'
                       placeholder='senha'
                     />
                   </div>
                 </div>
-                <div>
+                <div className='flex justify-center items-center'>
                   <button
                     type='submit'
-                    className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                    className='flex text-center btn max-h-[1%] p-0 w-[80%] -translate-y-1 hover:translate-y-0'
                   >
                     Sign Up
                   </button>

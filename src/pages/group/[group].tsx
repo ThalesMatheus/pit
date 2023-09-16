@@ -17,33 +17,25 @@ function GroupPage() {
   const router = useRouter();
   const { group: groupid } = router.query; 
   const [enable, isEnable] =  useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
 
-function handleEnableSidebar() {
-  setIsEnable(!isEnable);
-  setIsAnimating(true);
-}
-
-function handleSidebarAnimation() {
-  setIsAnimating(false);
-}
   useEffect(() => {
     
     console.log("groupid:", groupid);
   }, [groupid]); 
 
   return (
-    <div className='group-container flex flex-row w-[100%] h-[100%]'>
+    <div className='group-container flex ml-1 flex-row w-[100%] h-[100%]'>
       <div className='chat-container w-[80%]'>
 
       </div>
       {groupid !== undefined && (
         <Container> 
-        <button className='h-[2rem] w-[2rem] absolute z-10 rounded-sm bg-gray-100 cursor-pointer' onClick={() => isEnable(!enable)}> </button> 
+      
+        <button className='btn btn-outline btn-circle z-10 absolute bg-gray-100 max-h-1 cursor-pointer' onClick={() => isEnable(!enable)}> 
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button> 
         <div className={`sidebar-container w-[100%] h-[100%] relative ${enable ? 'block': 'none'}`}
-  style={{
-    transform: isAnimating ? `translateX(-100%)` : `translateX(0)`,
-  }}
+
 >          <Description_bar groupid={groupid} isEnable={enable} />
         </div>
         </Container>

@@ -16,7 +16,7 @@ export const Confirm_button_leave = ({children, groupid}) => {
         }
       }
     return (
-     <button
+     <button className='btn h-1! p-1 min-h-[1.5rem] h-[2rem] ml-1 btn-outline btn-error'
      onClick={() => onGroupLeave(groupid, cookieValue)}
      >
         {children}
