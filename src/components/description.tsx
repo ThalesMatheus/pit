@@ -11,8 +11,7 @@ interface user {
     isEnable: boolean
   }
 export const Description_bar = ({groupid, isEnable}: description_interface) => {
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA => " + groupid + " AAAAAAAAAAAAAAAAAAAAAAAA")
-    const [user, setUser] = useState<user[]>([]);
+      const [user, setUser] = useState<user[]>([]);
     useEffect(() => {
         axios.post('http://localhost:8800/groups/current_users', {
             groupid: groupid

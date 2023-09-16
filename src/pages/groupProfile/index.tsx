@@ -1,5 +1,5 @@
 import Navbar from "@/components/nav";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Auth } from "@/contexts/auth";
 import React, { useEffect, useState } from "react";
@@ -13,11 +13,13 @@ import { Confirm_button } from "@/components/button";
 import { Confirm_button_leave } from "@/components/buttonLeave";
 import { Description_bar } from "@/components/description";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 interface Group {
   id: number;
   name: string;
   // Add more properties as needed
 }
+
 
 export const GroupListPage: React.FC = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -35,20 +37,28 @@ export const GroupListPage: React.FC = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8800/groups")
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/groups");
         setGroups(response.data);
         console.log(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching groups:", error);
-      });
+        return response.data; // Return the data on success
+      } catch (error) {
+        throw error; // Throw an error on failure
+      }
+    };
+  
+    toast.promise(fetchData(), {
+      loading: "Fetching data...",
+      error: "Error fetching groups",
+      success: "Data fetched successfully!",
+    });
   }, []);
+  
   return (
     <>
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 h-[100%]">
         <h1 className="text-2xl font-bold mb-4">Group List</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {groups.map((group) => (
@@ -82,7 +92,8 @@ export const GroupListPage: React.FC = () => {
           )}
         </div>
       </div>
-      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
+      <Toaster />
+      {/* <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} /> */}
     </>
   );
 };

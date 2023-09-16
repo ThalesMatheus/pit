@@ -16,9 +16,9 @@ export default function Example () {
           <body class="h-full">
           ```
         */}
-      <div className='flex w-[100%] justify-center items-center h-[100vh]' style={{ backgroundImage: 'url(https://images4.alphacoders.com/115/115708.jpg)', filter: '(10px)' }}>
+       <div className='flex w-[100%] justify-center items-center h-[100vh]' >
         <div className=' w-[33%] flex justify-center' style={{ overflow: 'hidden', marginTop: '0%', backdropFilter: 'blur(4px)', backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '2px' }}>
-          <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+          <div className='flex rounded-xl border min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
             <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
               <img
                 className='mx-auto h-10 w-auto'
@@ -45,12 +45,15 @@ export default function Example () {
                         placeholder='email'
                       />
                     </div>
-                  <button
-                      type='submit'
-                      className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                    <div className='flex mt-4 items-center justify-center'>
+
+                    <button
+                    type='submit'
+                    className='flex text-center btn max-h-[1%] p-0 w-[80%] -translate-y-1 hover:translate-y-0'
                     >
-                      Enviar nova senha
-                    </button>
+                    Sign Up
+                  </button>
+                    </div>
                 </div>
               </form>
             </div>

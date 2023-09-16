@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 
 
 function data_map (data: any) {
+
   const keys = Object.keys(data)
   console.log(keys)
   console.log(data)
@@ -17,18 +18,36 @@ function data_map (data: any) {
   return requestData
 }
 
+
 export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => {
-  const requestData = data_map(data)
-  const response = await axios.post('http://localhost:8800/creategroup', requestData)
-
-  if (response.data.id === 2) {
-    toast.error(response.data.message)
-  } else {
-    toast.success('group created', { theme: 'dark' })
-    handleCloseModal()
-  }
-}
-
+  const requestData = data_map(data);
+  const cookies = document.cookie;
+  const cookieName = 'user.auth_cookie';
+  let cookieValue = '';
+  const cookieArray = cookies.split(';');
+  for (const element of cookieArray) {
+      const cookie = element.trim();
+      if (cookie.startsWith(cookieName + '=')) {
+        cookieValue = cookie.substring(cookieName.length + 1);
+        break;
+      }
+    }
+  requestData['uuid_fake'] = cookieValue
+  toast.promise(
+    axios.post('http://localhost:8800/creategroup', requestData), {
+      loading: 'Creating group... 🕒', // Add a loading message with an emoji
+      success: ({ data }) => {
+        if (data.id === 2) {
+          return toast.error(`Error: ${data.message} ❌`)
+        } else {
+          handleCloseModal();
+          return `Group created! 👍`;
+        }
+      },
+      error: 'An error occurred ❌' + data.message,
+    }
+  );
+};
 export const onGroupEntry = async (data: any, uuid: any = '') => {
 
   const response = await axios.post('http://localhost:8800/groups/group_entry', {
@@ -62,3 +81,5 @@ export const onGroupLeave = async (data: any, uuid: any = '') => {
     toast.error(response.data.message, { theme: 'dark' })
   }
 }
+
+
