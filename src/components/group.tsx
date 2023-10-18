@@ -9,19 +9,18 @@ import Tags from '@/components/tags/tags'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
 
+var buceta = {}
+
 import { onGroupSubmit } from '@/hooks/Group'
 export default function Modal () {
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm()
+  const { register, handleSubmit, watch, setValue } = useForm();
+  const file = watch(["file"]);
+  const filePreview = file ? console.log(file) : null;
   const [isOpen, setIsOpen] = useState(false)
   const [selectedFile, setSelectedFile] = useState()
   const [checkFile, setCheckFile] = useState(false)
   const handlerSubmit = (data: any) => {
     onGroupSubmit(data, handleCloseModal)
-  }
-  const [tags, setTags] = useState([])
-
-  const handleTagsChange = (newTags) => {
-    setTags(newTags)
   }
   const handleCloseModal = () => {
     setIsOpen(false) // Close the modal by updating the state
@@ -34,7 +33,9 @@ export default function Modal () {
   }
 
   const imageHandler = (e) => {
+    console.log(e.target.files[0])
     setSelectedFile(e.target.files[0])
+    buceta = e.target.files[0]
     setCheckFile(true)
   }
   const [selectedIndex, setSelectedIndex] = useState('tab1')
@@ -277,10 +278,10 @@ export default function Modal () {
                 <input
                   type='file'
                   name='file'
+                  id="file"
                   accept="image/*"
-                  type="file"
                   className="sr-only"
-                  onChange={imageHandler}
+                  ref={...register('photo')}
                   style={{
                     borderRadius: '10px'
                   }}
@@ -293,16 +294,13 @@ export default function Modal () {
                       checkFile ? 'opacity-1' : 'opacity-0'
                     }`}
                     style={{
-                      backgroundImage: `url(${selectedFile ? URL.createObjectURL(selectedFile) : ''})`,
+                      backgroundImage: `url(${filePreview})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       backgroundRepeat: 'no-repeat',
                       objectFit: 'fill'
                     }}
                   />
-                  {selectedFile && (
-                    <input type='hidden' {...register('image')} value={selectedFile} />
-                  )}
                   <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
 
                 </div>

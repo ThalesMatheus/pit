@@ -7,15 +7,20 @@ function data_map (data: any) {
   const keys = Object.keys(data)
   console.log(keys)
   console.log(data)
+  const formData = new FormData()
+  formData.append('photo', data.photo[0]);
 
   const requestData = {}
 
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i]
     const value = data[key]
-    requestData[key] = value
+    formData.append(key, value)
+    if (key === 'photo') {
+      continue
+    }
   }
-  return requestData
+  return formData
 }
 
 
@@ -32,9 +37,19 @@ export const onGroupSubmit = async (data: any, handleCloseModal: () => void) => 
         break;
       }
     }
-  requestData['uuid_fake'] = cookieValue
+    requestData.append('uuid_fake', cookieValue)
+
+  console.log(data)
+  console.log(data.photo[0])
+
   toast.promise(
-    axios.post('http://localhost:8800/creategroup', requestData), {
+    axios.post('http://localhost:8800/creategroup', requestData, {
+      headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+  ),
+  {
       loading: 'Creating group... 🕒', // Add a loading message with an emoji
       success: ({ data }) => {
         if (data.id === 2) {
@@ -82,4 +97,7 @@ export const onGroupLeave = async (data: any, uuid: any = '') => {
   }
 }
 
+export const groupImageSubmit = async (data: any) => {
+
+}
 

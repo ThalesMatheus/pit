@@ -14,6 +14,7 @@ export const updateData = async (data) => {
     try {
       const formData = new FormData()
       formData.append('photo', data.photo[0])
+      console.log(data.photo[0])
       const temp = localStorage.getItem('username')
       formData.append('uuid', temp)
       const response = await axios.post('http://localhost:8800/update', formData)

@@ -8,6 +8,7 @@ const Container = styled.div`
 width: 20%;
 position: relative;
 height: 100%;
+display: ${props => (props.enable ? 'block' : 'none')};
 .sidebar-container {
   -moz-box-shadow: 10px 3px 92px -1px rgba(0,0,0,0.3);
    box-shadow: 10px 3px 92px -1px rgba(0,0,0,0.3);
@@ -29,7 +30,7 @@ function GroupPage() {
 
       </div>
       {groupid !== undefined && (
-        <Container> 
+        <Container enable={enable}> 
       
         <button className='btn btn-outline btn-circle z-10 absolute bg-gray-100 max-h-1 cursor-pointer' onClick={() => isEnable(!enable)}> 
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
