@@ -9,14 +9,36 @@ import Tags from '@/components/tags/tags'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
 
-var buceta = {}
+
 
 import { onGroupSubmit } from '@/hooks/Group'
 export default function Modal () {
   const { register, handleSubmit, watch, setValue } = useForm();
-  const file = watch(["file"]);
-  const filePreview = file ? console.log(file) : null;
-  const [isOpen, setIsOpen] = useState(false)
+  const file = watch(["photo"]);
+  function useFilePreview(file) {
+    try{
+  
+    const x = Object.values(file)[0][0]
+    setCheckFile(true)
+    return x
+  } 
+    catch(e) {
+      return null
+    }
+  }
+  useEffect(() => {
+  
+  var filepreview = useFilePreview(file)
+  try {
+    const link = URL.createObjectURL(filepreview)
+    setSelectedFile(link)
+  }
+  catch(e) {
+    const link = null
+    setSelectedFile(link)
+  }
+}, [file]);
+   const [isOpen, setIsOpen] = useState(false)
   const [selectedFile, setSelectedFile] = useState()
   const [checkFile, setCheckFile] = useState(false)
   const handlerSubmit = (data: any) => {
@@ -34,9 +56,6 @@ export default function Modal () {
 
   const imageHandler = (e) => {
     console.log(e.target.files[0])
-    setSelectedFile(e.target.files[0])
-    buceta = e.target.files[0]
-    setCheckFile(true)
   }
   const [selectedIndex, setSelectedIndex] = useState('tab1')
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
@@ -281,7 +300,7 @@ export default function Modal () {
                   id="file"
                   accept="image/*"
                   className="sr-only"
-                  ref={...register('photo')}
+                  {...register('photo')}
                   style={{
                     borderRadius: '10px'
                   }}
@@ -291,10 +310,11 @@ export default function Modal () {
                 <div className='absolute flex h-full w-full justify-center items-center gap-2'>
                   <div
                     className={`h-full w-full ${
-                      checkFile ? 'opacity-1' : 'opacity-0'
+                      checkFile ? 'opacity-1' : 'opacity-1'
                     }`}
                     style={{
-                      backgroundImage: `url(${filePreview})`,
+
+                      backgroundImage: `url(${selectedFile})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       backgroundRepeat: 'no-repeat',
