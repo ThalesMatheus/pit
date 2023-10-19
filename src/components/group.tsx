@@ -8,37 +8,14 @@ import { motion } from 'framer-motion'
 import Tags from '@/components/tags/tags'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
-
-
-
 import { onGroupSubmit } from '@/hooks/Group'
+
 export default function Modal () {
   const { register, handleSubmit, watch, setValue } = useForm();
-  const file = watch(["photo"]);
-  function useFilePreview(file) {
-    try{
+  const file = watch("file");
+
   
-    const x = Object.values(file)[0][0]
-    setCheckFile(true)
-    return x
-  } 
-    catch(e) {
-      return null
-    }
-  }
-  useEffect(() => {
-  
-  var filepreview = useFilePreview(file)
-  try {
-    const link = URL.createObjectURL(filepreview)
-    setSelectedFile(link)
-  }
-  catch(e) {
-    const link = null
-    setSelectedFile(link)
-  }
-}, [file]);
-   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [selectedFile, setSelectedFile] = useState()
   const [checkFile, setCheckFile] = useState(false)
   const handlerSubmit = (data: any) => {
@@ -52,11 +29,13 @@ export default function Modal () {
 
   const handleTextChange = (event) => {
     setSelectedText(event.target.value)
+
   }
 
   const imageHandler = (e) => {
-    console.log(e.target.files[0])
-  }
+    setSelectedFile(e.target.files[0])
+    setCheckFile(true)
+ }
   const [selectedIndex, setSelectedIndex] = useState('tab1')
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
   const [isCheckboxChecked2, setIsCheckboxChecked2] = useState(false)
@@ -92,17 +71,6 @@ export default function Modal () {
     })
   }
 
-  const imagesubmission = () => {
-    if (checkFile) {
-      alert('File Uploaded')
-      console.log(selectedFile)
-    } else {
-      alert('select a file')
-    }
-  }
-  const onSubmit = (data) => {
-    console.log(data)
-  }
 
   function closeModal () {
     setIsOpen(false)
@@ -288,7 +256,7 @@ export default function Modal () {
 
         </Tabs.Content>
         <Tabs.Content className='TabsContent h-[60vh]' value='tab4'>
-          <div className='h-[100%] flex justify-center items-center px-2'>
+        <div className='h-[100%] flex justify-center items-center px-2'>
             <div className='w-[320px] flex flex-col items-center justify-center gap-2'>
               <div
                 className='h-[10rem] w-[10rem] cursor-pointer relative flex justify-center items-center border-2 rounded-md'
@@ -297,10 +265,15 @@ export default function Modal () {
                 <input
                   type='file'
                   name='file'
-                  id="file"
                   accept="image/*"
+                  type="file"
                   className="sr-only"
-                  {...register('photo')}
+                  onChange={(e) => {
+                  imageHandler(e);
+                  setValue('photo', e.target.files[0]);
+
+                }
+                }
                   style={{
                     borderRadius: '10px'
                   }}
@@ -313,8 +286,7 @@ export default function Modal () {
                       checkFile ? 'opacity-1' : 'opacity-1'
                     }`}
                     style={{
-
-                      backgroundImage: `url(${selectedFile})`,
+                      backgroundImage: `url(${selectedFile ? URL.createObjectURL(selectedFile) : ''})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       backgroundRepeat: 'no-repeat',

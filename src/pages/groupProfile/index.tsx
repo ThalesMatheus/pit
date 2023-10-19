@@ -14,6 +14,7 @@ import { Confirm_button_leave } from "@/components/buttonLeave";
 import { Description_bar } from "@/components/description";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import Image from "next/image"
 interface Group {
   id: number;
   name: string;
@@ -82,6 +83,11 @@ export const GroupListPage: React.FC = () => {
                 {" "}
                 Detalhes
               </Link>
+              {group.foto ? (
+        <Link href={`https://localhost:8800`}>
+          <Image src={`http://localhost:8800/uploads/${group.foto}`} width={500} height={500} />
+        </Link>
+      ) : null}             
             </div>
           ))}
           {isModalOpen && (
