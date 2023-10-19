@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { ImageUserContainer } from '@/components/ProfileLink'
 
 
   
@@ -31,7 +32,9 @@ function NavbarProperly({ setSidebarOpen, isOpen }: any) {
     <button className="btn btn-ghost btn-circle flex items-center justify-center">
     <div className="avatar flex items-center justify-center">
   <div className="w-[80%] rounded-full">
+  <ImageUserContainer>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD3SJpXzZV6ZucaMtm-lSdio6f9LBCooJ9VQ&usqp=CAU" />
+  </ImageUserContainer>
   </div>
 </div>
     </button>

@@ -2,19 +2,22 @@ import { GetServerSideProps } from 'next'
 import { useState, useEffect, Fragment } from 'react'
 import { parseCookies } from 'nookies'
 import { jwtcheck } from '@/hooks/VerifyJWT'
-
 import '@emotion/react'
 import axios from 'axios'
 import { Auth } from '@/contexts/auth'
 
 import { motion } from 'framer-motion'
 import NavbarProperly from '@/components/navbar'
-function Navigator() {
+function Navigator( {children}: any) {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const setter = () => {
       setSidebarOpen(!sidebarOpen)
     }
     return (
+      <>
+        <motion.div style={{width: "100%"}}>
+  <NavbarProperly setSidebarOpen={setter} isOpen={sidebarOpen} />
+  </motion.div>
 <div className="style-gateway flex"  style={{ width: !sidebarOpen ? '100%' : '100%' }}>
   <div className='sidebar h-auto w-auto ' style={{ width: sidebarOpen ? '33%' : '0%' }} > 
   <aside id="cta-button-sidebar" className=" h-screen overflow-hidden transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
@@ -31,12 +34,12 @@ function Navigator() {
             </a>
          </li>
          <li>
-            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="/groupProfile" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                   <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
                </svg>
-               <span className="flex-1 ml-3 whitespace-nowrap">Kanban</span>
-               <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
+               <span className="flex-1 ml-3 whitespace-nowrap">Groups</span>
+               <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300"></span>
             </a>
          </li>
          <li>
@@ -101,9 +104,11 @@ function Navigator() {
    </div>
 </aside>
   </div>
-  <motion.div style={{width: "100%"}}>
-  <NavbarProperly setSidebarOpen={setter} isOpen={sidebarOpen} />
-  </motion.div>
+
+  {children}
 </div>
+
+  </>
     )}
+
     export default Navigator;
